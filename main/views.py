@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
+from rest_framework.views import APIView
 
-# Create your views here.
+class MainPage(APIView):
+    def get(self,request):
+        return render(request,'main/mainpage.html')
