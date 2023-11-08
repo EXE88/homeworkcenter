@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="form.date">date of tomorrow: </label>
+        {{form.date}}
+        <input type="submit" class="btn btn-primary" value="submit">
+    </form>
+{% endblock body %}
