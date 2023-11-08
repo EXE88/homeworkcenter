@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from rest_framework.views import APIView
+from . import forms
 
-# Create your views here.
+class CreateNewHomework(APIView):
+    def get(self,request):
+        return render(request,'homework/createnewhomework.html')
