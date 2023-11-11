@@ -1,10 +1,58 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <link rel="stylesheet" href="/static/css/write_homework_style.css">
+{% endblock head %}
+
 {% block body %}
     <form action="" method="post">
         {% csrf_token %}
-        <label for="form.date">date of tomorrow: </label>
-        {{form.date}}
-        <input type="submit" class="btn btn-primary" value="submit">
+        <div class='card mx-auto rounded margin_top'>
+            <div class='card-body'>
+                {% for field in form %}
+
+                    {% if field.label == 'Date' %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                        {{ field }}<br>
+                    {% endif %}
+                    
+                    {% if day == 'Saturday' %}
+                        {% if field.label == 'Biology' or field.label == 'Social studies' or field.label == 'Conversation' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if day == 'Sunday' %}
+                        {% if field.label == 'Literature' or field.label == 'Math' or field.label == 'Physics' or field.label == 'English' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                            {% endif %}
+                    {% endif %}
+
+                    {% if day == 'Monday' %}
+                        {% if field.label == 'Art' or field.label == 'Arabic' or field.label == 'Math' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if day == 'Tuesday' %}
+                        {% if field.label == 'Writing' or field.label == 'Quran' or field.label == 'Social studies' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if day == 'Wednesday' %}
+                        {% if field.label == 'Religious' or field.label == 'Defense readiness' or field.label == 'Math' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <input type="submit" value="submit" class="btn btn-primary mx-auto d-block button_size"><br>
+        </div>
     </form>
 {% endblock body %}

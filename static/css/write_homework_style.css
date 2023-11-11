@@ -1,0 +1,43 @@
+@media (max-width: 575px) {
+    .card {
+        width: 24rem;
+        margin: auto;
+    }
+    .button_size {
+        width: 91%;
+    }
+    body {
+        margin-top: 11rem; 
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .card {
+        width: 30rem;
+        margin: auto;
+    }
+    .button_size {
+        width: 93%;
+    }
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: 35rem;
+        margin: auto;
+    }
+    .button_size {
+        width: 94%;
+    }
+}
+
+.card-body label {
+    display: block;
+    margin-bottom: 8px;
+}
+.form_control {
+    width: 99%;
+}
+.margin_top {
+    margin-top: 10%;
+}
