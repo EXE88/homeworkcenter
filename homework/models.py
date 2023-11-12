@@ -15,3 +15,6 @@ class WriteHomework(models.Model):
     quran = models.CharField(max_length=100 , blank=True)
     writeing = models.CharField(max_length=100 , blank=True)
     art = models.CharField(max_length=100 , blank=True)
+    
+    def __str__(self):
+        return f"{self.date} - {self.date.strftime('%A')}"
