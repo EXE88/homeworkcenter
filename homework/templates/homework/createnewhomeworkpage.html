@@ -2,14 +2,10 @@
 
 {% block head %}
     <link rel="stylesheet" href="/static/css/write_homework_style.css">
-    <link rel="stylesheet" href="/static/css/persian-datepicker.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/static/js/persian-datepicker.js"></script>
-    <script src="/static/js/persian-date.js"></script>
 {% endblock head %}
 
 {% block body %}
-    <form action="" method="post" id='myform'>
+    <form action="" method="post">
         {% csrf_token %}
         <div class='card mx-auto rounded margin_top'>
             <div class='card-body'>
@@ -17,7 +13,7 @@
 
                     {% if field.label == 'Date' %}
                         <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
-                        <input class="datepicker" name="date" value="{{ field.value }}"/>
+                        {{field}}<br>
                     {% endif %}
                     
                     {% if day == 'Saturday' %}
@@ -56,31 +52,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <input type="submit" value="submit" class="btn btn-primary mx-auto d-block button_size" onclick='submitForm()'><br>
+            <input type="submit" value="submit" class="btn btn-primary mx-auto d-block button_size"><br>
         </div>
     </form>
-
-    <script>
-        function submitForm() {
-            var form = document.getElementById('myform');
-            var datepickerInput = document.querySelector('.datepicker');
-        
-            // گرفتن مقدار input تاریخ
-            var selectedDate = datepickerInput.value;
-        
-            // تنظیم مقدار در فیلد Date فرم
-            form.elements['date'].value = selectedDate;
-        
-            // ارسال فرم
-            form.submit();
-        }
-        
-        $('.datepicker').persianDatepicker({
-            observer: true,
-            format: 'YYYY/MM/DD',
-            altField: 'none',
-            autoClose:true,
-            initialValueType: 'persian'
-        });
-    </script>
 {% endblock body %}
