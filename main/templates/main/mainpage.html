@@ -1,12 +1,52 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="card mx-auto mt-3 rounded" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">سه شنبه 1402/3/1</h5>
-        <p class="card-text">هدیه : بمیرید</p>
-        <a href="#" class="btn btn-primary">Edit</a>
-        <a href="#" class="btn btn-danger">Delete</a>
-    </div>
-</div>
+    {% for model in models%}
+        <div class="card mx-auto mt-3 rounded" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{model.date}}</h5>
+                {% if model.math != '' %}
+                    <p class="card-text">ریاضی : {{model.math}}</p>
+                {% endif %}
+                {% if model.literature != '' %}
+                    <p class="card-text">فارسی : {{model.literature}}</p>
+                {% endif %}
+                {% if model.biology != '' %}
+                    <p class="card-text">زیست : {{model.biology}}</p>
+                {% endif %}
+                {% if model.physics != '' %}
+                    <p class="card-text">فیزیک : {{model.physics}}</p>
+                {% endif %}
+                {% if model.religious != '' %}
+                    <p class="card-text">هدیه : {{model.religious}}</p>
+                {% endif %}
+                {% if model.Defense_readiness != '' %}
+                    <p class="card-text">امادگی دفاعی : {{model.Defense_readiness}}</p>
+                {% endif %}
+                {% if model.Social_studies != '' %}
+                    <p class="card-text">مطالعات اجتماعی : {{model.Social_studies}}</p>
+                {% endif %}
+                {% if model.english != '' %}
+                    <p class="card-text">زبان : {{model.english}}</p>
+                {% endif %}
+                {% if model.conversation != '' %}
+                    <p class="card-text">مکالمه : {{model.conversation}}</p>
+                {% endif %}
+                {% if model.arabic != '' %}
+                    <p class="card-text">عربی : {{model.arabic}}</p>
+                {% endif %}
+                {% if model.quran != '' %}
+                    <p class="card-text">قران : {{model.quran}}</p>
+                {% endif %}
+                {% if model.writeing != '' %}
+                    <p class="card-text">نگارش : {{model.writeing}}</p>
+                {% endif %}
+                {% if model.art != '' %}
+                    <p class="card-text">هنر : {{model.art}}</p>
+                {% endif %}
+                <a href="#" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock body %}
