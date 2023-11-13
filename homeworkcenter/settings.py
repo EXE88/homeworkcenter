@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'main',
     'homework',
+    'accounts',
 ]
 
 MIDDLEWARE = [
