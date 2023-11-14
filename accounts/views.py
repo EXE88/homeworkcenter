@@ -4,18 +4,18 @@ from rest_framework.views import APIView
 
 class UserRegisterView(APIView):
     def get(self,request):
-        pass
+        return render(request,'accounts/registerpage.html')
     def post(self,request):
         pass
     
 class UserLoginView(APIView):
     def get(self,request):
-        pass
+        return render(request,'accounts/loginpage.html')
     def post(self,request):
         pass
     
 class UserLogoutView(APIView):
     def get(self,request):
-        pass
+        return render(request,'accounts/logoutpage.html')
     def post(self,request):
         pass
