@@ -5,5 +5,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('rest_framework.urls')),
     path('',include('main.urls')),
-    path('homework/',include('homework.urls'))
+    path('homework/',include('homework.urls')),
+    path('accounts/',include('accounts.urls')),
 ]
