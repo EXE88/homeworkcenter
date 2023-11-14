@@ -8,7 +8,7 @@ class UserRegisterView(APIView):
     def post(self,request):
         pass
     
-class UserLoginrView(APIView):
+class UserLoginView(APIView):
     def get(self,request):
         pass
     def post(self,request):
