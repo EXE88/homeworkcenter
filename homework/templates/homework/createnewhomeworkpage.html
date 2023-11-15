@@ -13,7 +13,7 @@
 
                     {% if field.label == 'Date' %}
                         <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
-                        <input type="text" pattern="[0-9-]+" value="{{ field.value }}" required class='form-control' maxlength="10"><br>
+                        {{field}}<br>
                     {% endif %}
                     
                     {% if day == 'Saturday' %}

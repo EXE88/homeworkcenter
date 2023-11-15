@@ -5,7 +5,7 @@ from jdatetime import date
 class WriteHomeworkForm(forms.Form):
     tomorrow = datetime.now() + timedelta(days=1)
     tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
-    date = forms.DateField(initial=tomorrow , widget=forms.TextInput(attrs={'readonly':False , 'class':'form-control'}))
+    date = forms.DateField(initial=tomorrow , widget=forms.TextInput(attrs={'readonly':True , 'class':'form-control'}))
     math = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}))
     literature = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}))
     biology = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}))
