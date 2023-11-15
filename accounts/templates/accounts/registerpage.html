@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <link rel="stylesheet" href="/static/css/write_homework_style.css">
+{% endblock head %}
+
 {% block body %}
     <form action="" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
+        <div class="card mx-auto rounded margin_top">
+            <div class="card-body">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" class="btn btn-primary form-control" value="register">
+            </div>
+        </div>
     </form>
 {% endblock body %}
