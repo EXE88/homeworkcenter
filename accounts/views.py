@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from rest_framework.views import APIView
+from django.views import View
 from . import forms
 from django.contrib import messages
 from django.shortcuts import redirect , render
 
-class UserRegisterView(APIView):
+class UserRegisterView(View):
     form_class = forms.UserRegisterForm
     template_name = "accounts/registerpage.html"
     def get(self,request):
@@ -20,13 +20,13 @@ class UserRegisterView(APIView):
             return redirect('main_page')
         return render(request,self.template_name,{"form":form})
     
-class UserLoginView(APIView):
+class UserLoginView(View):
     def get(self,request):
         return render(request,'accounts/loginpage.html')
     def post(self,request):
         pass
     
-class UserLogoutView(APIView):
+class UserLogoutView(View):
     def get(self,request):
         return render(request,'accounts/logoutpage.html')
     def post(self,request):

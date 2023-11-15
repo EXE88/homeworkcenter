@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from rest_framework.views import APIView
+from django.views import View
 from . import forms
 from . import models
 from jdatetime import date
 
-class CreateNewHomework(APIView):
+class CreateNewHomework(View):
     form_class = forms.WriteHomeworkForm
     def get(self,request):
         form = self.form_class()

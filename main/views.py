@@ -1,11 +1,11 @@
 from django.shortcuts import render , redirect
-from rest_framework.views import APIView
+from django.views import View
 from homework import models
 from jdatetime import date
 from datetime import timedelta
 from googletrans import Translator
 
-class MainPage(APIView):
+class MainPage(View):
     def get(self,request):
         allmodels = models.WriteHomework.objects.all()
         for model in allmodels:
