@@ -4,8 +4,9 @@ from homework import models
 from jdatetime import date
 from datetime import timedelta
 from googletrans import Translator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class MainPage(View):
+class MainPage(LoginRequiredMixin,View):
     def get(self,request):
         allmodels = models.WriteHomework.objects.all()
         for model in allmodels:

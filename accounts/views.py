@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views import View
 from . import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect , render
 from django.contrib.auth import authenticate , login , logout
@@ -46,7 +47,7 @@ class UserLoginView(View):
             messages.error(request,'username or password is wrong','warning')
         return render(request,self.template_name,{'form':form})
     
-class UserLogoutView(View):
+class UserLogoutView(LoginRequiredMixin,View):
     template_name  = 'accounts/logoutpage.html'
     def get(self,request):
         return render(request,self.template_name)
