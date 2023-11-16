@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/write_homework_style.css">
+{% endblock head %}
+
+{% block body %}
+    <form action="" method="post">
+        <div class='card mx-auto rounded margin_top '>
+            <div class='card-body'>
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.value != "" %}
+                        <label for="{{field.id_for_label}}">{{field.label}} : </label>
+                        {{field}}<br>
+                    {% endif %}
+                {% endfor %}
+                <input type="submit" value="update" class="btn btn-primary form-control">
+            </div>
+        </div>
+    </form>
+{% endblock body %}

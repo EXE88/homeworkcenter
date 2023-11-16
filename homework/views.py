@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect , get_object_or_404
 from django.contrib import messages
 from django.views import View
 from . import forms
@@ -32,3 +32,23 @@ class CreateNewHomework(View):
             )
             messages.success(request,'successful','success')
             return redirect('main_page')
+        
+class EditHomework(View):
+    form_class = forms.EditHomeworkForm
+    
+    def get(self, request, postid):
+        self.post_instance = get_object_or_404(models.WriteHomework, pk=postid)
+        form = self.form_class(instance=self.post_instance)
+        return render(request, 'homework/edithomeworkpage.html', {"form": form})
+
+    def post(self, request, postid):
+        self.post_instance = get_object_or_404(models.WriteHomework, pk=postid)
+        form = self.form_class(request.POST, instance=self.post_instance)
+        
+        if form.is_valid():
+            updated_post = form.save(commit=False)
+            updated_post.save()
+            messages.success(request,'homework updated successfully','success')
+            return redirect('main_page')    
+        messages.error(request,'something went wrong','danger')
+        return redirect('main_page')
