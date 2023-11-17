@@ -50,6 +50,13 @@
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
+
+                    {% if day == 'Thursday' or day == 'Friday' %}
+                        {% if field.label == 'Biology' or field.label == 'Social studies' or field.label == 'Conversation' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
             </div>
             <input type="submit" value="submit" class="btn btn-primary form-control"><br>
