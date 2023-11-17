@@ -45,8 +45,8 @@
                     <p class="card-text">هنر : {{model.art}}</p>
                 {% endif %}
                 {% if request.user.is_staff %}
-                    <a href="{% url "edit_homeowork_page" model.id %}" class="btn btn-primary">Edit</a>
-                    <a href="{% url "delete_homework_page" model.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url "edit_homeowork_page" model.id %}" class="btn btn-primary">ویرایش</a>
+                    <a href="{% url "delete_homework_page" model.id %}" class="btn btn-danger">حذف</a>
                 {% endif %}
             </div>
         </div>

@@ -11,7 +11,7 @@ class CreateNewHomework(LoginRequiredMixin,View):
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            messages.error(request,'just admins can create homeworks','danger')
+            messages.error(request,'فقط ادمین ها اجازه دسترسی به این بخش را دارند','danger')
             return redirect('main_page')
         return super().dispatch(request, *args, **kwargs)
 
@@ -39,7 +39,7 @@ class CreateNewHomework(LoginRequiredMixin,View):
             writeing = cd['writeing'],
             art = cd['art'],
             )
-            messages.success(request,'successful','success')
+            messages.success(request,'با موفقیت ثبت شد','success')
             return redirect('main_page')
         
 class EditHomework(LoginRequiredMixin,View):
@@ -51,7 +51,7 @@ class EditHomework(LoginRequiredMixin,View):
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            messages.error(request,'just admins can edit homeworks','danger')
+            messages.error(request,'فقط ادمین ها اجازه دسترسی به این بخش را دارند','danger')
             return redirect('main_page')
         return super().dispatch(request, *args, **kwargs)
      
@@ -67,9 +67,9 @@ class EditHomework(LoginRequiredMixin,View):
         if form.is_valid():
             updated_post = form.save(commit=False)
             updated_post.save()
-            messages.success(request,'homework updated successfully','success')
+            messages.success(request,'با موفقیت آپدیت شد','success')
             return redirect('main_page')    
-        messages.error(request,'something went wrong','danger')
+        messages.error(request,'مشکلی پیش آمده است','danger')
         return redirect('main_page')
     
 class DeleteHomework(LoginRequiredMixin,View):
@@ -79,7 +79,7 @@ class DeleteHomework(LoginRequiredMixin,View):
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            messages.error(request,'just admins can delete homeworks','danger')
+            messages.error(request,'فقط ادمین ها اجازه دسترسی به این بخش را دارند','danger')
             return redirect('main_page')
         return super().dispatch(request, *args, **kwargs)
     
@@ -89,5 +89,5 @@ class DeleteHomework(LoginRequiredMixin,View):
     def post(self,request,*args, **kwargs):
         post = self.post_instance
         post.delete()
-        messages.success(request,'homework deleted successfully','success')
+        messages.success(request,'با موفقیت حذف شد','success')
         return redirect('main_page')

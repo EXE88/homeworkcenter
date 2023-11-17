@@ -18,7 +18,7 @@ class UserRegisterView(View):
         if form.is_valid():
             cd = form.cleaned_data
             User.objects.create_user(username=cd['username'],email=cd['email'],password=cd['password'])
-            messages.success(request,'you are registered successfully','success')
+            messages.success(request,'حساب کاربری شما با موفقیت ایجاد شد','success')
             return redirect('main_page')
         return render(request,self.template_name,{"form":form})
     
@@ -37,14 +37,14 @@ class UserLoginView(View):
                 username = list(user)
                 username = username[0]
             except:
-                messages.error(request,'no user exists with this email','warning')
+                messages.error(request,'کاربری با این ایمیل یافت نشد','warning')
                 return render(request,self.template_name,{'form':form})
             user = authenticate(request,username=username,password=cd['password'])
             if user is not None:
                 login(request,user)
-                messages.success(request,'you are logged in successfully','success')
+                messages.success(request,'با موفقیت وارد شدید','success')
                 return redirect('main_page')
-            messages.error(request,'username or password is wrong','warning')
+            messages.error(request,'نام کاربری یا رمز عبور اشتباه است','warning')
         return render(request,self.template_name,{'form':form})
     
 class UserLogoutView(LoginRequiredMixin,View):
@@ -53,5 +53,5 @@ class UserLogoutView(LoginRequiredMixin,View):
         return render(request,self.template_name)
     def post(self,request):
         logout(request)
-        messages.success(request,'you are logged out successfully','success')
+        messages.success(request,'با موفقیت خارج شدید','success')
         return redirect('main_page')

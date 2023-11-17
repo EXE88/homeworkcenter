@@ -10,8 +10,8 @@
             <div class="card-body">
                 {% csrf_token %}
                 {{form.as_p}}
-                <input type="submit" value="login" class="btn btn-primary form-control"><br>
-                <br><a href="{% url "register_page" %}" class='btn btn-primary form-control'>not have a account? create one</a>
+                <input type="submit" value="ورود" class="btn btn-primary form-control"><br>
+                <br><a href="{% url "register_page" %}" class='btn btn-primary form-control'>ساخت حساب کاربری</a>
             </div>
         </div>
     </form>

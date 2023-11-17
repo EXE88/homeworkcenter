@@ -9,10 +9,10 @@
         <div class="card mx-auto rounded margin_top">
             <div class="card-body">
                 {% csrf_token %}
-                <h1>are you sure you want to logout ?</h1><br>
-                <input type="submit" value="Yes" class="btn btn-danger form-control">
+                <h1 style='font-size:30px;'>ایا از خروج از حساب خود اطمینان دارید ؟</h1><br>
+                <input type="submit" value="بله" class="btn btn-danger form-control">
                 <br>
-                <br><a href={% url "main_page" %} class="btn btn-success form-control">No</a>
+                <br><a href={% url "main_page" %} class="btn btn-success form-control">خیر</a>
             </div>
         </div>
     </form>
