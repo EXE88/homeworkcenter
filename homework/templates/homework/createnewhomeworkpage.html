@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <link rel="stylesheet" href="/static/css/write_homework_style.css">
+    <link rel="stylesheet" href="/static/css/card-style.css">
 {% endblock head %}
 
 {% block body %}
     <form action="" method="post">
         {% csrf_token %}
-        <div class='card mx-auto rounded margin_top'>
+        <div class='card mx-auto rounded' style='margin-top:5%'>
             <div class='card-body'>
                 {% for field in form %}
 
@@ -52,7 +52,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <input type="submit" value="submit" class="btn btn-primary mx-auto d-block form-control"><br>
+            <input type="submit" value="submit" class="btn btn-primary form-control"><br>
         </div>
     </form>
 {% endblock body %}
