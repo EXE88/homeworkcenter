@@ -38,6 +38,7 @@ class CreateNewHomework(LoginRequiredMixin,View):
             quran = cd['quran'],
             writeing = cd['writeing'],
             art = cd['art'],
+            more_description = cd['more_description']
             )
             messages.success(request,'با موفقیت ثبت شد','success')
             return redirect('main_page')

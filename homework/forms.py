@@ -20,6 +20,7 @@ class WriteHomeworkForm(forms.Form):
     quran = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}))
     writeing = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}))
     art = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}))
+    more_description = forms.CharField(max_length=250,required=False,widget=forms.Textarea(attrs={'class':'form-control'}))
     
 class EditHomeworkForm(forms.ModelForm):
     class Meta:
@@ -39,6 +40,7 @@ class EditHomeworkForm(forms.ModelForm):
                 "quran",
                 "writeing",
                 "art",
+                "more_description"
                 )
         widgets = {
             "date" : forms.TextInput(attrs={'readolny':True , 'class':'form-control'}),
@@ -54,6 +56,7 @@ class EditHomeworkForm(forms.ModelForm):
             "arabic" : forms.TextInput(attrs={'class':'form-control'}),
             "quran" : forms.TextInput(attrs={'class':'form-control'}),
             "writeing" : forms.TextInput(attrs={'class':'form-control'}),
-            "art" : forms.TextInput(attrs={'class':'form-control'})
+            "art" : forms.TextInput(attrs={'class':'form-control'}),
+            "more_description" : forms.Textarea(attrs={'class':'form-control'})
         }
         

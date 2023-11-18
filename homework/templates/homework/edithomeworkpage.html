@@ -13,6 +13,11 @@
                     {% if field.value != "" %}
                         <label for="{{field.id_for_label}}">{{field.label}} : </label>
                         {{field}}<br>
+                    {% else %}
+                        {% if field.label == 'More description' %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                            {{ field }}<br>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
                 <input type="submit" value="آپدیت" class="btn btn-primary form-control">

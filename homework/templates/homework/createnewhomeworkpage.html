@@ -57,6 +57,11 @@
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
+
+                    {% if field.label == 'More description' %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                        {{ field }}<br>
+                    {% endif %}
                 {% endfor %}
             </div>
             <input type="submit" value="ثبت" class="btn btn-primary form-control"><br>
