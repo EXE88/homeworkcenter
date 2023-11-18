@@ -44,6 +44,9 @@
                 {% if model.art != '' %}
                     <p class="card-text">هنر : {{model.art}}</p>
                 {% endif %}
+                {% if model.more_description != '' %}
+                    <p class="card-text">توضیحات اضافه : {{model.more_description}}</p>
+                {% endif %}
                 {% if request.user.is_staff %}
                     <a href="{% url "edit_homeowork_page" model.id %}" class="btn btn-primary">ویرایش</a>
                     <a href="{% url "delete_homework_page" model.id %}" class="btn btn-danger">حذف</a>
