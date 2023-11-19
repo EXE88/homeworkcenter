@@ -59,4 +59,21 @@ class EditHomeworkForm(forms.ModelForm):
             "art" : forms.TextInput(attrs={'class':'form-control'}),
             "more_description" : forms.Textarea(attrs={'class':'form-control'})
         }
+        labels = {
+            "date": "تاریخ",
+            "math": "ریاضی",
+            "literature": "فارسی",
+            "biology": "زیست",
+            "physics": "فیزیک",
+            "religious": "دینی",
+            "Defense_readiness": "آمادگی دفاعی",
+            "Social_studies": "مطالعات اجتماعی",
+            "english": "زبان",
+            "conversation": "مکالمه",
+            "arabic": "عربی",
+            "quran": "قرآن",
+            "writeing": "نگارش",
+            "art": "هنر",
+            "more_description": "توضیحات اضافه"
+        }
         
