@@ -11,54 +11,54 @@
             <div class='card-body'>
                 {% for field in form %}
 
-                    {% if field.label == 'Date' %}
+                    {% if field.label == 'تاریخ' %}
                         <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                         {{field}}<br>
                     {% endif %}
                     
                     {% if day == 'Saturday' %}
-                        {% if field.label == 'Biology' or field.label == 'Social studies' or field.label == 'Conversation' %}
+                        {% if field.label == 'زیست' or field.label == 'مطالعات اجتماعی' or field.label == 'مکالمه' %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
 
                     {% if day == 'Sunday' %}
-                        {% if field.label == 'Literature' or field.label == 'Math' or field.label == 'Physics' or field.label == 'English' %}
+                        {% if field.label == 'فارسی' or field.label == 'ریاضی' or field.label == 'فیزیک' or field.label == 'زبان' %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                             {{ field }}<br>
                             {% endif %}
                     {% endif %}
 
                     {% if day == 'Monday' %}
-                        {% if field.label == 'Art' or field.label == 'Arabic' or field.label == 'Math' %}
+                        {% if field.label == 'هنر' or field.label == 'عربی' or field.label == 'ریاضی' %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
 
                     {% if day == 'Tuesday' %}
-                        {% if field.label == 'Writeing' or field.label == 'Quran' or field.label == 'Social studies' %}
+                        {% if field.label == 'نگارش' or field.label == 'قران' or field.label == 'مطالعات اجتماعی' %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
 
                     {% if day == 'Wednesday' %}
-                        {% if field.label == 'Religious' or field.label == 'Defense readiness' or field.label == 'Math' %}
+                        {% if field.label == 'دینی' or field.label == 'آمادگی دفاعی' or field.label == 'ریاضی' %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
 
                     {% if day == 'Thursday' or day == 'Friday' %}
-                        {% if field.label == 'Biology' or field.label == 'Social studies' or field.label == 'Conversation' %}
+                        {% if field.label == 'زیست' or field.label == 'مطالعات اجتماعی' or field.label == 'مکالمه' %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                             {{ field }}<br>
                         {% endif %}
                     {% endif %}
 
-                    {% if field.label == 'More description' %}
+                    {% if field.label == 'توضیحات اضافه' %}
                         <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                         {{ field }}<br>
                     {% endif %}
