@@ -6,4 +6,5 @@ urlpatterns = [
     path('',include('main.urls')),
     path('homework/',include('homework.urls')),
     path('accounts/',include('accounts.urls')),
+    path('verification/', include('verify_email.urls')),	
 ]

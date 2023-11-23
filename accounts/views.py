@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect , render
 from django.contrib.auth import authenticate , login , logout
+from django.core.mail import EmailMessage
+
 
 class UserRegisterView(View):
     form_class = forms.UserRegisterForm
@@ -40,6 +42,7 @@ class UserLoginView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            EmailMessage('admin','hello admin','taklif93@gmail.com',to=['bobolk1388@gmail.com'])
             try:
                 user = User.objects.filter(email=cd['email'])
                 username = list(user)
