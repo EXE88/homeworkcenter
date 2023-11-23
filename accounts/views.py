@@ -6,8 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect , render
 from django.contrib.auth import authenticate , login , logout
-from django.core.mail import EmailMessage
-
+from django.core.mail import send_mail
 
 class UserRegisterView(View):
     form_class = forms.UserRegisterForm
@@ -35,27 +34,29 @@ class UserRegisterView(View):
 class UserLoginView(View):
     form_class = forms.UserLoginForm
     template_name = "accounts/loginpage.html"
+    
     def get(self,request):
         form = self.form_class()
         return render(request,self.template_name,{"form":form})
+    
     def post(self,request):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            EmailMessage('admin','hello admin','taklif93@gmail.com',to=['bobolk1388@gmail.com'])
+            
             try:
-                user = User.objects.filter(email=cd['email'])
-                username = list(user)
-                username = username[0]
+                username = User.objects.filter(email=cd['email']).first()
             except:
                 messages.error(request,'کاربری با این ایمیل یافت نشد','warning')
                 return render(request,self.template_name,{'form':form})
+            
             user = authenticate(request,username=username,password=cd['password'])
             if user is not None:
                 login(request,user)
                 messages.success(request,'با موفقیت وارد شدید','success')
                 return redirect('main_page')
             messages.error(request,'نام کاربری یا رمز عبور اشتباه است','warning')
+        
         return render(request,self.template_name,{'form':form})
     
 class UserLogoutView(LoginRequiredMixin,View):
