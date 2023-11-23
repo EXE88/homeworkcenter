@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/card-style.css">
+{% endblock head%}
+
+{% block body %}
+    <form action="" method="post">
+        <div class="card mx-auto rounded margin_top">
+            <div class="card-title mx-auto margin_top">
+                <h1>احراز هویت ایمیل</h1>
+            </div>
+            <div class="card-description mx-auto margin-top">
+                <h5>لطفا ایمیل خود را وارد کنید تا ما کد تایید را برای شما بفرستیم </h5>
+            </div>
+            <div class="card-body">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="احراز هویت" class="btn btn-primary form-control">
+            </div>
+        </div>
+    </form>
+{% endblock body%}

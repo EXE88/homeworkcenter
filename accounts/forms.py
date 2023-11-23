@@ -30,3 +30,6 @@ class UserRegisterForm(forms.Form):
 class UserLoginForm(forms.Form):
     email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}))
     password = forms.CharField(max_length=15,min_length=8,required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    
+class UserEmailVeifyForm(forms.Form):
+    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}))
