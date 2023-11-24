@@ -32,4 +32,4 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(max_length=15,min_length=8,required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
     
 class UserEmailVeifyForm(forms.Form):
-    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}))
+    verifycode = forms.CharField(min_length=6,max_length=6, required=True ,label='کد تایید' ,widget=forms.TextInput(attrs={'class':'form-control'}))
