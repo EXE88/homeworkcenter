@@ -9,6 +9,7 @@
         <div class="card mx-auto rounded margin_top">
             <div class="card-body">
                 {% csrf_token %}
+                <label for="{{form.id_for_label}}">{{form.label}}</label>
                 {{form.as_p}}
                 <input type="submit" value="ورود" class="btn btn-primary form-control"><br>
                 <br><a href="{% url "register_page" %}" class='btn btn-primary form-control'>ساخت حساب کاربری</a>

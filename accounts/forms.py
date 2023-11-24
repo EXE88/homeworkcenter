@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 class UserRegisterForm(forms.Form):
-    username = forms.CharField(max_length=25 , required=True , widget=forms.TextInput(attrs={"class":"form-control"}))
-    email = forms.EmailField(required=True , widget=forms.EmailInput(attrs={"class":"form-control"}))
-    password = forms.CharField(required=True , widget=forms.PasswordInput(attrs={"class":"form-control"}) , max_length=15 , min_length=8)
-    password_verify = forms.CharField(required=True , widget=forms.PasswordInput(attrs={"class":"form-control"}) , max_length=15 , min_length=8)
+    username = forms.CharField(max_length=25 , label='نام کاربری' , required=True , widget=forms.TextInput(attrs={"class":"form-control"}))
+    email = forms.EmailField(required=True  , label='ایمیل' , widget=forms.EmailInput(attrs={"class":"form-control"}))
+    password = forms.CharField(required=True , label='رمز عبور' , widget=forms.PasswordInput(attrs={"class":"form-control"}) , max_length=15 , min_length=8)
+    password_verify = forms.CharField(required=True , label='تایید رمزعبور' , widget=forms.PasswordInput(attrs={"class":"form-control"}) , max_length=15 , min_length=8)
     
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -28,8 +28,8 @@ class UserRegisterForm(forms.Form):
             raise ValidationError('there is a user with this username')
         
 class UserLoginForm(forms.Form):
-    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}))
-    password = forms.CharField(max_length=15,min_length=8,required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}) , label='ایمیل')
+    password = forms.CharField(max_length=15,min_length=8,required=True,widget=forms.PasswordInput(attrs={'class':'form-control'}) , label='رمزعبور')
     
 class UserEmailVeifyForm(forms.Form):
     verifycode = forms.CharField(min_length=6,max_length=6, required=True ,label='کد تایید' ,widget=forms.TextInput(attrs={'class':'form-control'}))
