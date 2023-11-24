@@ -9,6 +9,7 @@
         <div class="card mx-auto rounded margin_top">
             <div class="card-body">
                 {% csrf_token %}
+                <label for="{{form.id_for_label}}">{{form.label}}</label>
                 {{form.as_p}}
                 <input type="submit" class="btn btn-primary form-control" value="ساخت حساب کاربری">
             </div>
