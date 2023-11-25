@@ -4,9 +4,7 @@ from jdatetime import date
 from . import models
 
 class WriteHomeworkForm(forms.Form):
-    tomorrow = datetime.now() + timedelta(days=1)
-    tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
-    date = forms.DateField(initial=tomorrow , widget=forms.TextInput(attrs={'readonly':True , 'class':'form-control'}) , label='تاریخ')
+    date = forms.DateField(widget=forms.TextInput(attrs={'readonly':True , 'class':'form-control'}) , label='تاریخ')
     math = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}) , label='ریاضی')
     literature = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}) , label='فارسی')
     biology = forms.CharField(max_length=100 , required=False , widget=forms.TextInput(attrs={'class':'form-control'}) , label='زیست')

@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from . import models
 from jdatetime import date
+from datetime import timedelta , datetime
 
 class CreateNewHomework(LoginRequiredMixin,View):
     form_class = forms.WriteHomeworkForm
@@ -17,7 +18,10 @@ class CreateNewHomework(LoginRequiredMixin,View):
 
     def get(self,request):
         form = self.form_class()
-        return render(request,'homework/createnewhomeworkpage.html',{"form":form,"day":form.tomorrow.strftime('%A')})
+        tomorrow = datetime.now() + timedelta(days=1)
+        tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
+        form.fields['date'].initial = tomorrow
+        return render(request,'homework/createnewhomeworkpage.html',{"form":form,"day":tomorrow.strftime('%A')})
    
     def post(self,request):
         form = self.form_class(request.POST)
