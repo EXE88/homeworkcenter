@@ -9,6 +9,7 @@ from datetime import timedelta , datetime
 
 class CreateNewHomework(LoginRequiredMixin,View):
     form_class = forms.WriteHomeworkForm
+    template_name  = 'homework/createnewhomeworkpage.html'
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
@@ -16,39 +17,40 @@ class CreateNewHomework(LoginRequiredMixin,View):
             return redirect('main_page')
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self,request):
+    def get(self, request, *args, **kwargs):
         form = self.form_class()
         tomorrow = datetime.now() + timedelta(days=1)
         tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
         form.fields['date'].initial = tomorrow
-        return render(request,'homework/createnewhomeworkpage.html',{"form":form,"day":tomorrow.strftime('%A')})
+        return render(request, self.template_name, {"form":form,"day":tomorrow.strftime('%A')})
    
-    def post(self,request):
+    def post(self, request,*args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             new_homework = models.WriteHomework.objects.create(
-            date = cd['date'],
-            math = cd['math'],
-            literature = cd['literature'],
-            biology = cd['biology'],
-            physics = cd['physics'],
-            religious = cd['religious'],
-            Defense_readiness = cd['Defense_readiness'],
-            Social_studies = cd['Social_studies'],
-            english = cd['english'],
-            conversation = cd['conversation'],
-            arabic = cd['arabic'],
-            quran = cd['quran'],
-            writeing = cd['writeing'],
-            art = cd['art'],
-            more_description = cd['more_description']
+                date = cd['date'],
+                math = cd['math'],
+                literature = cd['literature'],
+                biology = cd['biology'],
+                physics = cd['physics'],
+                religious = cd['religious'],
+                Defense_readiness = cd['Defense_readiness'],
+                Social_studies = cd['Social_studies'],
+                english = cd['english'],
+                conversation = cd['conversation'],
+                arabic = cd['arabic'],
+                quran = cd['quran'],
+                writeing = cd['writeing'],
+                art = cd['art'],
+                more_description = cd['more_description']
             )
             messages.success(request,'با موفقیت ثبت شد','success')
             return redirect('main_page')
         
 class EditHomework(LoginRequiredMixin,View):
     form_class = forms.EditHomeworkForm
+    template_name = 'homework/edithomeworkpage.html'
     
     def setup(self, request, *args, **kwargs):
         self.post_instance = get_object_or_404(models.WriteHomework, pk=kwargs['postid'])
@@ -63,7 +65,7 @@ class EditHomework(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         post = self.post_instance
         form = self.form_class(instance=post)
-        return render(request, 'homework/edithomeworkpage.html', {"form": form})
+        return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
         post = self.post_instance
@@ -72,12 +74,14 @@ class EditHomework(LoginRequiredMixin,View):
         if form.is_valid():
             updated_post = form.save(commit=False)
             updated_post.save()
-            messages.success(request,'با موفقیت آپدیت شد','success')
+            messages.success(request,'با موفقیت بروز رسانی شد','success')
             return redirect('main_page')    
         messages.error(request,'مشکلی پیش آمده است','danger')
         return redirect('main_page')
     
 class DeleteHomework(LoginRequiredMixin,View):
+    template_name = 'homework/deletehomeworkpage.html'
+    
     def setup(self, request, *args, **kwargs):
         self.post_instance = get_object_or_404(models.WriteHomework,pk=kwargs['postid'])
         return super().setup(request, *args, **kwargs)
@@ -88,10 +92,10 @@ class DeleteHomework(LoginRequiredMixin,View):
             return redirect('main_page')
         return super().dispatch(request, *args, **kwargs)
     
-    def get(self,request,*args, **kwargs):
-        return render(request,'homework/deletehomeworkpage.html')
+    def get(self,request, *args, **kwargs):
+        return render(request, self.template_name)
     
-    def post(self,request,*args, **kwargs):
+    def post(self,request, *args, **kwargs):
         post = self.post_instance
         post.delete()
         messages.success(request,'با موفقیت حذف شد','success')

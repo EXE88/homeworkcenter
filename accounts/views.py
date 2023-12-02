@@ -22,9 +22,9 @@ class UserRegisterView(View):
             messages.error(request,'لطفا برای دسترسی به این بخش از حساب کاربری خود خارج شوید','danger')
             return redirect('main_page')
     
-    def get(self,request):
+    def get(self, request):
         form = self.form_class()
-        return render(request,'accounts/registerpage.html',{'form':form})
+        return render(request, self.template_name, {'form':form})
     
     def post(self,request):
         form = self.form_class(request.POST)
@@ -42,9 +42,10 @@ class UserRegisterView(View):
             new_user.save()
             verify_code = ''.join(random.choices(string.ascii_lowercase + string.digits,k=6))
             models.UserVerifyCode.objects.create(username=new_user.username,verifycode=verify_code)
-            send_mail("کد تایید شما در taklif93",f'کد تایید شما : {verify_code}','taklif93@gmail.com',[new_user.email])
+            send_mail("کد تایید شما در taklif93",f'your verifying code : {verify_code}','',[new_user.email])
             return redirect(reverse('verifyemail_page') + f'?username={new_user.username}')
         
+        messages.error(request, 'اطلاعات وارد شده صحیح نمی باشد', 'danger')
         return render(request,self.template_name,{"form":form})
     
 class UserLoginView(View):
@@ -58,42 +59,47 @@ class UserLoginView(View):
             messages.error(request,'لطفا برای دسترسی به این بخش از حساب کاربری خود خارج شوید','danger')
             return redirect('main_page')
     
-    def get(self,request):
+    def get(self, request, *args, **kwargs):
         form = self.form_class()
-        return render(request,self.template_name,{"form":form})
+        return render(request, self.template_name, {"form":form})
     
-    def post(self,request):
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             
             try:
-                username = User.objects.filter(email=cd['email']).first()
+                user_founded = User.objects.filter(email=cd['email']).first()
             except:
-                messages.error(request,'کاربری با این ایمیل یافت نشد','warning')
-                return render(request,self.template_name,{'form':form})
+                messages.error(request, 'کاربری با این ایمیل یافت نشد', 'danger')
+                return render(request, self.template_name, {'form':form})
             
-            user = authenticate(request,username=username,password=cd['password'])
+            user = authenticate(request, username=user_founded.username, password=cd['password'])
             if user is not None:
                 login(request,user)
                 messages.success(request,'با موفقیت وارد شدید','success')
                 return redirect('main_page')
-            messages.error(request,'نام کاربری یا رمز عبور اشتباه است','warning')
+            
+            messages.error(request,'نام کاربری یا رمز عبور اشتباه است','danger')
+            return render(request,self.template_name,{'form':form})
         
+        messages.error(request, 'اطلاعات وارد شده صحیح نمی باشد', 'danger')
         return render(request,self.template_name,{'form':form})
     
 class UserLogoutView(LoginRequiredMixin,View):
     template_name  = 'accounts/logoutpage.html'
-    def get(self,request):
+    
+    def get(self, request, *args, **kwargs):
         return render(request,self.template_name)
-    def post(self,request):
+    
+    def post(self, request, *args, **kwargs):
         logout(request)
         messages.success(request,'با موفقیت خارج شدید','success')
         return redirect('main_page')
     
 class VerifyEmailView(View):
-    template_name = 'accounts/verifyemailpage.html'
     form_class = forms.UserEmailVeifyForm
+    template_name = 'accounts/verifyemailpage.html'
     
     def setup(self, request, *args, **kwargs):
         self.username = request.GET.get('username',None)
@@ -106,11 +112,11 @@ class VerifyEmailView(View):
             messages.error(request,'لطفا برای دسترسی به این از حساب کاربری خود خارج شوید','danger')
             return redirect('main_page')
     
-    def get(self,request):
+    def get(self, request, *args, **kwargs):
         form = self.form_class()
-        return render(request,self.template_name,{'form':form})
+        return render(request, self.template_name, {'form':form})
     
-    def post(self,request):
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
             current_code = models.UserVerifyCode.objects.filter(username=self.username,verifycode=request.POST['verifycode']).exists()
@@ -126,4 +132,6 @@ class VerifyEmailView(View):
             else:
                 messages.error(request,'کد تایید اشتبااست ','danger')
                 return render(request,self.template_name,{'form':form})
+            
+        messages.error(request, 'اطلاعات وارد شده صحیح نمی باشد', 'danger')
         return render(request,self.template_name,{'form':form})

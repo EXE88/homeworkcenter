@@ -3,7 +3,6 @@ from django.views import View
 from homework import models
 from jdatetime import date
 from datetime import timedelta
-from googletrans import Translator
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class MainPage(LoginRequiredMixin,View):
@@ -28,8 +27,7 @@ class MainPage(LoginRequiredMixin,View):
             if "Thursday" in full_date:
                 shamsi_date_plus_two_days = shamsi_date + timedelta(days=2)
                 model.date = full_date = full_date.replace('Thursday','شنبه') 
-                model.date = full_date.replace(f'{shamsi_date.year}/{shamsi_date.month}/{shamsi_date.day}',f'{shamsi_date_plus_two_days.year}/{shamsi_date_plus_two_days.month}/{shamsi_date_plus_two_days.day}')
-                
+                model.date = full_date.replace(f'{shamsi_date.year}/{shamsi_date.month}/{shamsi_date.day}',f'{shamsi_date_plus_two_days.year}/{shamsi_date_plus_two_days.month}/{shamsi_date_plus_two_days.day}')    
             if "Friday" in full_date:
                 shamsi_date_plus_one_day = shamsi_date + timedelta(days=1)
                 model.date  = full_date = full_date.replace('Friday','شنبه')

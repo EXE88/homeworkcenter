@@ -3,5 +3,5 @@ from . import models
 
 @admin.register(models.WriteHomework)
 class WriteHomeworkAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ('date',)
 
