@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User , Group
 from django.views import View
 from . import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -40,6 +40,69 @@ class UserRegisterView(View):
             new_user = User.objects.create_user(username=cd['username'],email=cd['email'],password=cd['password'])
             new_user.is_active = False
             new_user.save()
+            
+            new_user = User.objects.get(username=cd['username'],email=cd['email'])
+            
+            grade = request.POST['grade']
+            grade = int(grade)
+            
+            if grade == 0:
+                group = Group.objects.get(name='ninth grade class 1')
+                new_user.groups.add(group)
+                new_user.save()
+                
+            if grade == 1:
+                group = Group.objects.get(name='ninth grade class 2')
+                new_user.groups.add(group)    
+                new_user.save()
+                
+            if grade == 2:
+                group = Group.objects.get(name='ninth grade class 3')
+                new_user.groups.add(group)     
+                new_user.save()                       
+            
+            if grade == 3:
+                group = Group.objects.get(name='eighth grade class 1')
+                new_user.groups.add(group) 
+                new_user.save()           
+            
+            if grade == 4:
+                group = Group.objects.get(name='eighth grade class 2')
+                new_user.groups.add(group) 
+                new_user.save()     
+                
+            if grade == 5:
+                group = Group.objects.get(name='eighth grade class 3')
+                new_user.groups.add(group) 
+                new_user.save() 
+                
+            if grade == 6:
+                group = Group.objects.get(name='eighth grade class 4')
+                new_user.groups.add(group)
+                new_user.save()
+                          
+            if grade == 7:
+                group = Group.objects.get(name='seventh grade class 1')
+                new_user.groups.add(group)  
+                new_user.save()
+                
+            if grade == 8:
+                group = Group.objects.get(name='seventh grade class 2')
+                new_user.groups.add(group)  
+                new_user.save()             
+                
+            if grade == 9:
+                group = Group.objects.get(name='seventh grade class 3')
+                new_user.groups.add(group) 
+                new_user.save()
+                
+            if grade == 10:
+                group = Group.objects.get(name='seventh grade class 4')
+                new_user.groups.add(group) 
+                new_user.save()
+                
+            print(grade)
+            
             verify_code = ''.join(random.choices(string.ascii_lowercase + string.digits,k=6))
             models.UserVerifyCode.objects.create(username=new_user.username,verifycode=verify_code)
             send_mail("کد تایید شما در taklif93",f'your verifying code : {verify_code}','',[new_user.email])
