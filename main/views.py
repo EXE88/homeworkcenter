@@ -7,7 +7,41 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class MainPage(LoginRequiredMixin,View):
     def get(self,request):
-        allmodels = models.WriteHomework.objects.all()
+        for group in request.user.groups.all():
+            group = str(group)
+            if 'ninth grade class 1' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='نهم 1')
+                
+            if 'ninth grade class 2' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='نهم 2')                
+                
+            if 'ninth grade class 3' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='نهم 3')
+                                
+            if 'eighth grade class 1' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هشتم 1') 
+                
+            if 'eighth grade class 2' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هشتم 2') 
+                
+            if 'eighth grade class 3' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هشتم 3') 
+                                                                               
+            if 'eighth grade class 4' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هشتم 4')  
+                
+            if 'seventh grade class 1' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هفتم 1')                                                                                               
+                
+            if 'seventh grade class 2' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هفتم 2')
+                
+            if 'seventh grade class 3' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هفتم 3')
+                
+            if 'seventh grade class 4' in group:
+                allmodels = models.WriteHomework.objects.all().filter(grade='هفتم 4')                                                
+                
         for model in allmodels:
             miladi_date = date(year=model.date.year,month=model.date.month,day=model.date.day).togregorian()
             shamsi_date = date.fromgregorian(year = miladi_date.year , month = miladi_date.month , day = miladi_date.day)
