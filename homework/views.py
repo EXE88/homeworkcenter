@@ -19,9 +19,23 @@ class CreateNewHomework(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
-        tomorrow = datetime.now() + timedelta(days=1)
-        tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
-        form.fields['date'].initial = tomorrow
+        current_time = datetime.now()
+        current_solar_time = date.fromgregorian(year=current_time.year,month=current_time.month,day=current_time.day)
+        
+        if 'Thursday' in current_solar_time.strftime('%A'):
+            tomorrow = datetime.now() + timedelta(days=2)
+            tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
+            form.fields['date'].initial = tomorrow
+        
+        elif 'Friday' in current_solar_time.strftime('%A'):
+            tomorrow = datetime.now() + timedelta(days=1)
+            tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
+            form.fields['date'].initial = tomorrow 
+            
+        else:
+            tomorrow = datetime.now() + timedelta(days=1)
+            tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
+            form.fields['date'].initial = tomorrow 
         
         for group in request.user.groups.all():
             group = str(group)
