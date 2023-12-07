@@ -8,6 +8,7 @@ class WriteHomeworkForm(forms.ModelForm):
         model = models.WriteHomework
         fields = (
             "date",
+            "grade",
             "math",
             "literature",
             "biology",
@@ -24,7 +25,8 @@ class WriteHomeworkForm(forms.ModelForm):
             "more_description"
         )
         widgets = {
-            "date" : forms.TextInput(attrs={'readolny':True , 'class':'form-control'}),
+            "date" : forms.TextInput(attrs={'readonly':True , 'class':'form-control'}),
+            "grade" : forms.TextInput(attrs={'readonly':True , 'class':'form-control'}),
             "math" : forms.TextInput(attrs={'class':'form-control'}),
             "literature" : forms.TextInput(attrs={'class':'form-control'}),
             "biology" : forms.TextInput(attrs={'class':'form-control'}),
@@ -42,6 +44,7 @@ class WriteHomeworkForm(forms.ModelForm):
         }
         labels = {
             "date": "تاریخ",
+            "grade": "پایه",
             "math": "ریاضی",
             "literature": "فارسی",
             "biology": "زیست",
@@ -63,6 +66,7 @@ class EditHomeworkForm(forms.ModelForm):
         model = models.WriteHomework
         fields = (
             "date",
+            "grade",
             "math",
             "literature",
             "biology",
@@ -79,7 +83,8 @@ class EditHomeworkForm(forms.ModelForm):
             "more_description"
         )
         widgets = {
-            "date" : forms.TextInput(attrs={'readolny':True , 'class':'form-control'}),
+            "date" : forms.TextInput(attrs={'readonly':True , 'class':'form-control'}),
+            "grade" : forms.TextInput(attrs={'readonly':True , 'class':'form-control'}),
             "math" : forms.TextInput(attrs={'class':'form-control'}),
             "literature" : forms.TextInput(attrs={'class':'form-control'}),
             "biology" : forms.TextInput(attrs={'class':'form-control'}),
@@ -97,6 +102,7 @@ class EditHomeworkForm(forms.ModelForm):
         }
         labels = {
             "date": "تاریخ",
+            "grade": "پایه",
             "math": "ریاضی",
             "literature": "فارسی",
             "biology": "زیست",

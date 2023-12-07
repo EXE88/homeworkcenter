@@ -2,6 +2,7 @@ from django.db import models
 
 class WriteHomework(models.Model):
     date = models.DateField(blank=False)
+    grade = models.CharField(max_length=50 , blank=False)
     math = models.CharField(max_length=100 , blank=True)
     literature = models.CharField(max_length=100 , blank=True)
     biology = models.CharField(max_length=100 , blank=True)
@@ -18,4 +19,4 @@ class WriteHomework(models.Model):
     more_description = models.TextField(max_length=250,blank=True)
     
     def __str__(self):
-        return f"{self.date} - {self.date.strftime('%A')}"
+        return f"{self.date} - {self.date.strftime('%A')} - {self.grade}"

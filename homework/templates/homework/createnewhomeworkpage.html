@@ -15,6 +15,11 @@
                         <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
                         {{field}}<br>
                     {% endif %}
+
+                    {% if field.label == 'پایه' %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                        {{field}}<br>
+                    {% endif %}                    
                     
                     {% if day == 'Saturday' %}
                         {% if field.label == 'زیست' or field.label == 'مطالعات اجتماعی' or field.label == 'مکالمه' %}

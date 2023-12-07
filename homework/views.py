@@ -22,6 +22,43 @@ class CreateNewHomework(LoginRequiredMixin,View):
         tomorrow = datetime.now() + timedelta(days=1)
         tomorrow = date.fromgregorian(year = tomorrow.year , month = tomorrow.month , day = tomorrow.day)
         form.fields['date'].initial = tomorrow
+        
+        for group in request.user.groups.all():
+            group = str(group)
+            
+            if "ninth grade class 1" in group:
+                form.fields['grade'].initial = "نهم 1"
+                
+            if "ninth grade class 2" in group:
+                form.fields['grade'].initial = "نهم 2"
+                
+            if "ninth grade class 3" in group:
+                form.fields['grade'].initial = "نهم 3" 
+                               
+            if "eighth grade class 1" in group:
+                form.fields['grade'].initial = "هشتم 1" 
+                               
+            if "eighth grade class 2" in group:
+                form.fields['grade'].initial = "هشتم 2"
+                
+            if "eighth grade class 3" in group:
+                form.fields['grade'].initial = "هشتم 3"
+                
+            if "eighth grade class 4" in group:
+                form.fields['grade'].initial = "هشتم 4" 
+                
+            if "seventh grade class 1" in group:
+                form.fields['grade'].initial = "هفتم 1"                 
+                                                               
+            if "seventh grade class 2" in group:
+                form.fields['grade'].initial = "هفتم 2"
+                
+            if "seventh grade class 3" in group:
+                form.fields['grade'].initial = "هفتم 3"
+                
+            if "seventh grade class 4" in group:
+                form.fields['grade'].initial = "هفتم 4"                                                                                               
+                                                               
         return render(request, self.template_name, {"form":form,"day":tomorrow.strftime('%A')})
    
     def post(self, request,*args, **kwargs):
@@ -30,6 +67,7 @@ class CreateNewHomework(LoginRequiredMixin,View):
             cd = form.cleaned_data
             new_homework = models.WriteHomework.objects.create(
                 date = cd['date'],
+                grade = cd['grade'],
                 math = cd['math'],
                 literature = cd['literature'],
                 biology = cd['biology'],
