@@ -68,4 +68,4 @@ class MainPage(LoginRequiredMixin,View):
                 model.date = full_date.replace(f'{shamsi_date.year}/{shamsi_date.month}/{shamsi_date.day}',f'{shamsi_date_plus_one_day.year}/{shamsi_date_plus_one_day.month}/{shamsi_date_plus_one_day.day}')
         
         sorted_models = sorted(allmodels, key=lambda x: x.date, reverse=True)
-        return render(request,'main/mainpage.html',{"models":sorted_models})
+        return render(request,'main/mainpage.html',{"models":sorted_models}) 
